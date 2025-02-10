@@ -1,0 +1,45 @@
+@model TaskTracker.Models.TaskModel
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<h2>Edit Task</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label>Name</label>
+        <input asp-for="Name" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Priority</label>
+        <input asp-for="Priority" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Due Date</label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Tags (comma-separated)</label>
+        <input name="tags" class="form-control" value="@Model.Tags" />
+    </div>
+    <div class="form-group">
+        <label>Completed</label>
+        <input asp-for="IsCompleted" type="checkbox" />
+    </div>
+     <div class="form-group">
+    <label>
+        <input type="checkbox" asp-for="IsUrgent"> Mark as Urgent
+    </label>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<a href="@Url.Action("Index")">Back to List</a>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

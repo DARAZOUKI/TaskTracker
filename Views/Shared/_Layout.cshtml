@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>@ViewData["Title"] - TaskTracker</title>
+    
+    <link rel="stylesheet" href="/css/style.css" asp-append-version="true" />
+</head>
+<body>
+   <partial name="_Navbar" />
+    <div class="container">
+        @RenderBody()
+        @RenderSection("Scripts", required: false)
+
+    </div>
+    @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+}
+<script src="/js/site.js"></script>
+
+</body>
+
+</html>
