@@ -1,4 +1,4 @@
-@model List<TaskTracker.Models.TaskModel>
+@model TaskTracker.Models.TaskListViewModel
 
 @{
     ViewData["Title"] = "Task List";
@@ -7,10 +7,16 @@
 <div class="container">
     <h2>Task List</h2>
 
+    <!-- Visa data från TempData -->
     @if (TempData["Message"] != null)
     {
         <div class="alert alert-success">@TempData["Message"]</div>
     }
+
+    <!-- Visa data från ViewBag -->
+    <div class="alert alert-info">
+        <strong>@ViewBag.Greeting</strong>
+    </div>
 
     <a href="@Url.Action("Create")" class="btn">Add New Task</a>
 
@@ -23,31 +29,31 @@
                 <th>Due Date</th>
                 <th>Tags</th>
                 <th>Status</th>
-                 <th>Urgent</th>
+                <th>Urgent</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var task in Model)
+            @foreach (var task in Model.Tasks) // Använd Tasks från ViewModel
             {
                 <tr>
-                    <td data-label="Name">@task.Name</td>
-                    <td data-label="Description">@task.Description</td>
-                    <td data-label="Priority">@task.Priority</td>
-                    <td data-label="Due Date">@task.DueDate.ToShortDateString()</td>
-                    <td data-label="Tags">@task.Tags</td>
-                    <td data-label="Status">@(task.IsCompleted ? "Completed" : "Pending")</td>
-                      <td data-label="Urgent">
-                @if (task.IsUrgent)
-                {
-                    <span style="color: red; font-weight: bold;">🚨 Yes</span>
-                }
-                else
-                {
-                    <span>No</span>
-                }
-            </td>
-                    <td class="action-buttons">
+                    <td>@task.Name</td>
+                    <td>@task.Description</td>
+                    <td>@task.Priority</td>
+                    <td>@task.DueDate.ToShortDateString()</td>
+                    <td>@task.Tags</td>
+                    <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
+                    <td>
+                        @if (task.IsUrgent)
+                        {
+                            <span style="color: red; font-weight: bold;">🚨 Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </td>
+                    <td>
                         <a href="@Url.Action("Edit", new { id = task.Id })" class="btn-warning">Edit</a>
                         <a href="@Url.Action("Delete", new { id = task.Id })" class="btn-danger">Delete</a>
                         @if (!task.IsCompleted)
@@ -59,13 +65,18 @@
             }
         </tbody>
     </table>
-  
 
+    <!-- Visa data från ViewData -->
+    <div class="alert alert-info">
+        <strong>Total Tasks:</strong> @ViewData["TaskCount"]
+    </div>
+
+    <!-- Visa data från ViewModel -->
+    <div class="alert alert-warning">
+        <strong>Message:</strong> @Model.GreetingMessage
+    </div>
 </div>
 
-  <div class="alert alert-info">
-    <strong>Total Tasks:</strong> @ViewData["TaskCount"]
-</div>
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

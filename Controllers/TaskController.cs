@@ -8,11 +8,26 @@ namespace TaskTracker.Controllers
     {
         // Display all tasks
         public IActionResult Index()
-        {
-            var tasks = TaskRepository.LoadTasks();  // Load tasks from JSON
-            ViewData["TaskCount"] = tasks.Count;
-            return View(tasks);
-        }
+{
+    var tasks = TaskRepository.LoadTasks(); 
+
+    // Använd ViewData
+    ViewData["TaskCount"] = tasks.Count;
+
+    // Använd ViewBag
+    ViewBag.Greeting = "Welcome to My Task Manager!";
+
+    // Use ViewModel for parameter passing
+    var viewModel = new TaskListViewModel
+    {
+        Tasks = tasks,
+        TaskCount = tasks.Count,
+        GreetingMessage = "This is the Tasks"
+    };
+
+    return View(viewModel); // Return an instance of a ViewModel
+}
+
 
         // Show form for adding a task
         public IActionResult Create()

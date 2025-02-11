@@ -6,7 +6,7 @@ body {
     background-color: #f8f9fa;
 }
 
-/* Responsive Container */
+/*  Container */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -100,7 +100,6 @@ th {
 .btn-danger { background: #dc3545; }
 .btn-success { background: #28a745; }
 
-/* --- 📱 Responsive Table Design: Convert to Card Layout on Small Screens --- */
 @media (max-width: 768px) {
     body {
         padding: 0;
@@ -110,51 +109,65 @@ th {
     }
 
     .container {
-        width: 95%;  /* Adjust width to prevent left overflow */
+        width: 95%;
         padding: 10px;
     }
+
+   
     table, thead, tbody, th, td, tr {
         display: block;
         width: 100%;
-        box-sizing: border-box; /* Prevents content from overflowing */
+        box-sizing: border-box;
     }
 
     thead {
-        display: none; /* Hide table header */
+        display: none; /* Hide the table header */
     }
-    td {
-        padding: 10px;
-        word-break: break-word; /* Ensures long text wraps */
-    }
+
     tr {
         margin-bottom: 10px;
         border: 1px solid #ddd;
         border-radius: 8px;
         padding: 10px;
         background: white;
+        display: flex;
+        flex-direction: column;
     }
 
     td {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column; /* Stack label and content */
+        align-items: flex-start; /* Left align text */
         padding: 8px;
         font-size: 14px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td:last-child {
+        border-bottom: none; 
     }
 
     td::before {
         content: attr(data-label);
         font-weight: bold;
         color: #007bff;
+        margin-bottom: 4px; /* Space between label and content */
     }
 
+    /* Action Buttons - Side by Side */
     .action-buttons {
-        flex-direction: column;
-        align-items: center;
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .action-buttons a {
-        width: 100%;
+        flex: 1;
+        min-width: 200px;
         text-align: center;
-        margin-top: 5px;
+        padding: 8px;
     }
 }
+
+
